@@ -33,7 +33,6 @@ export const openModal = function (evt) {
   switch (evt.target.classList.value) {
     case 'profile__edit-button':
       popup = popupEditProfile;
-      console.log(popup.elements);
       nameInput.value = document.querySelector('.profile__title').textContent;
       jobInput.value = document.querySelector('.profile__description').textContent;
       break;
