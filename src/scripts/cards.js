@@ -1,3 +1,5 @@
+import {popupImage} from "./modal.js";
+
 const initialCards = [
   {
     name: "Архыз",
@@ -25,21 +27,36 @@ const initialCards = [
   }
 ];
 
+const placesList = document.querySelector('.places__list');
+
+// @todo: Темплейт карточки
+
+const cardTemplate = document.querySelector('#card-template').content;
+
+const placesItem = cardTemplate.querySelector('.places__item');
+
 // @todo: Функция создания карточки
 
 const createCard = function (placesItem, cardName, cardLink, removeCard, likeCard, openModal) {
 
-  let placeItem = placesItem.cloneNode(true);
+  const placeItem = placesItem.cloneNode(true);
+  const cardImage = placeItem.querySelector('.card__image');
 
-  placeItem.querySelector('.card__image').src = cardLink;
-  placeItem.querySelector('.card__image').alt = `Фотография места в России - ${cardName}`;
+  const altForImage = `Фотография места в России - ${cardName}`;
+  cardImage.src = cardLink;
+  cardImage.alt = altForImage;
   placeItem.querySelector('.card__title').textContent = cardName;
 
   placeItem.querySelector('.card__delete-button').addEventListener('click', removeCard);
 
   placeItem.querySelector('.card__like-button').addEventListener('click', likeCard);
 
-  placeItem.querySelector('.card__image').addEventListener('click', openModal);
+  cardImage.addEventListener('click', () => {
+    const image = popupImage.querySelector('.popup__image');
+    image.src = cardLink;
+    image.alt = altForImage;
+    openModal(popupImage);
+  });
 
   return placeItem;
 }
@@ -54,4 +71,4 @@ const likeCard = function (event) {
   event.target.classList.toggle('card__like-button_is-active');
 }
 
-export { initialCards, createCard, removeCard, likeCard };
+export { initialCards, createCard, removeCard, likeCard, placesList, placesItem };
