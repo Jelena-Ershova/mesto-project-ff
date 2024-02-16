@@ -53,8 +53,10 @@ const createCard = function (placesItem, cardName, cardLink, removeCard, likeCar
 
   cardImage.addEventListener('click', () => {
     const image = popupImage.querySelector('.popup__image');
+    const description = popupImage.querySelector('.popup__caption');
     image.src = cardLink;
     image.alt = altForImage;
+    description.textContent = cardName;
     openModal(popupImage);
   });
 
