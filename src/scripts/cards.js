@@ -1,5 +1,3 @@
-import {popupImage} from "./modal.js";
-
 const initialCards = [
   {
     name: "Архыз",
@@ -27,7 +25,6 @@ const initialCards = [
   }
 ];
 
-const placesList = document.querySelector('.places__list');
 
 // @todo: Темплейт карточки
 
@@ -37,7 +34,7 @@ const placesItem = cardTemplate.querySelector('.places__item');
 
 // @todo: Функция создания карточки
 
-const createCard = function (placesItem, cardName, cardLink, removeCard, likeCard, openModal) {
+const createCard = function (placesItem, cardName, cardLink, removeCard, likeCard, openCardsModal) {
 
   const placeItem = placesItem.cloneNode(true);
   const cardImage = placeItem.querySelector('.card__image');
@@ -51,14 +48,7 @@ const createCard = function (placesItem, cardName, cardLink, removeCard, likeCar
 
   placeItem.querySelector('.card__like-button').addEventListener('click', likeCard);
 
-  cardImage.addEventListener('click', () => {
-    const image = popupImage.querySelector('.popup__image');
-    const description = popupImage.querySelector('.popup__caption');
-    image.src = cardLink;
-    image.alt = altForImage;
-    description.textContent = cardName;
-    openModal(popupImage);
-  });
+  cardImage.addEventListener('click', openCardsModal);
 
   return placeItem;
 }
@@ -73,4 +63,4 @@ const likeCard = function (event) {
   event.target.classList.toggle('card__like-button_is-active');
 }
 
-export { initialCards, createCard, removeCard, likeCard, placesList, placesItem };
+export { initialCards, createCard, removeCard, likeCard, placesItem };
