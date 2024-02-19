@@ -1,6 +1,6 @@
 import '../pages/index.css';
 
-import {initialCards, createCard, removeCard, likeCard, placesItem } from "./cards.js"
+import { initialCards, createCard, removeCard, likeCard, placesItem } from "./cards.js"
 
 import { openModal, closeModal, popupEditProfile, popupAddCard, nameInput, jobInput, cardNameInput, cardLinkInput } from "./modal.js";
 
@@ -33,7 +33,7 @@ const openCardsModal = function (evt) {
   image.src = picture.src;
   image.alt = picture.alt;
   const index = image.alt.lastIndexOf('-');
-  description.textContent = picture.alt.slice(index+2);
+  description.textContent = picture.alt.slice(index + 2);
 
   openModal(popupImage);
 }
@@ -51,19 +51,16 @@ overlay.forEach((elem) => {
   switch (elem) {
     case popupEditProfile:
       popupClose = popupEditProfile;
-      console.log(popupClose);
       break;
     case popupAddCard:
       popupClose = popupAddCard;
-      console.log(popupClose);
       break;
     case popupImage:
       popupClose = popupImage;
-      console.log(popupClose);
       break;
   }
   elem.addEventListener('click', (evt) => {
-    if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) 
+    if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close'))
       closeModal(popupClose);
   });
 });

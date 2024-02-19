@@ -15,14 +15,14 @@ const handleFormKeyDown = function (evt) {
   }
 }
 
-function openModal (popup) {
+const openModal = function (popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', handleFormKeyDown);
 }
 
 const closeModal = function (popup) {
-    popup.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', handleFormKeyDown);
+  popup.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', handleFormKeyDown);
 }
 
-export {openModal, closeModal, popupEditProfile, popupAddCard, nameInput, jobInput, cardNameInput, cardLinkInput};
+export { openModal, closeModal, popupEditProfile, popupAddCard, nameInput, jobInput, cardNameInput, cardLinkInput };
