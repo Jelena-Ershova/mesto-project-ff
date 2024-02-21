@@ -1,8 +1,10 @@
 import '../pages/index.css';
 
-import { initialCards, createCard, removeCard, likeCard, placesItem } from "./cards.js"
+import { initialCards } from "./cards.js"
 
-import { openModal, closeModal, popupEditProfile, popupAddCard, nameInput, jobInput, cardNameInput, cardLinkInput } from "./modal.js";
+import { createCard, removeCard, likeCard, placesItem } from "./card.js"
+
+import { openModal, closeModal } from "./modal.js";
 
 // @todo: DOM узлы
 
@@ -15,6 +17,9 @@ const buttonAddCard = document.querySelector('.profile__add-button');
 
 const placesList = document.querySelector('.places__list');
 
+const popupEditProfile = document.querySelector('.popup_type_edit');
+const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
+const jobInput = popupEditProfile.querySelector('.popup__input_type_description');
 
 buttonEditProfile.addEventListener('click', () => {
   nameInput.value = profile.textContent;
@@ -25,15 +30,13 @@ buttonEditProfile.addEventListener('click', () => {
 buttonAddCard.addEventListener('click', () => openModal(popupAddCard));
 
 const popupImage = document.querySelector('.popup_type_image');
+const imageMesto = popupImage.querySelector('.popup__image');
+const caption = popupImage.querySelector('.popup__caption');
 
-const openCardsModal = function (evt) {
-  const picture = evt.target;
-  const image = popupImage.querySelector('.popup__image');
-  const description = popupImage.querySelector('.popup__caption');
-  image.src = picture.src;
-  image.alt = picture.alt;
-  const index = image.alt.lastIndexOf('-');
-  description.textContent = picture.alt.slice(index + 2);
+const openCardsModal = function (name, link) {
+  imageMesto.src = link;
+  imageMesto.alt = name;
+  caption.textContent = name;
 
   openModal(popupImage);
 }
@@ -47,23 +50,16 @@ initialCards.forEach((elem) => {
 const overlay = document.querySelectorAll('.popup');
 
 overlay.forEach((elem) => {
-  let popupClose;
-  switch (elem) {
-    case popupEditProfile:
-      popupClose = popupEditProfile;
-      break;
-    case popupAddCard:
-      popupClose = popupAddCard;
-      break;
-    case popupImage:
-      popupClose = popupImage;
-      break;
-  }
   elem.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close'))
-      closeModal(popupClose);
+      closeModal(elem);
   });
 });
+
+const popupAddCard = document.querySelector('.popup_type_new-card');
+
+const cardNameInput = popupAddCard.querySelector('.popup__input_type_card-name');
+const cardLinkInput = popupAddCard.querySelector('.popup__input_type_url');
 
 const handleProfileFormSubmit = function (evt) {
   evt.preventDefault();
