@@ -1,0 +1,25 @@
+.popup__input_type_error {
+  border-bottom-color: #FF0000 !important;
+}
+
+.popup__form__field {
+  position: relative;
+  display: block;
+}
+
+.popup__form__input-error {
+  display: none;
+  position: absolute;
+  top: 48px;
+  z-index: 2;
+  width: max-content;
+  max-width: 358px;
+  color: #FF0000;
+  background-color: #FFF;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.popup__error_visible {
+  display: block;
+}

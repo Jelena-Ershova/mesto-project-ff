@@ -1,12 +1,13 @@
 .profile__image {
+  display: flex;
   width: 120px;
   height: 120px;
+  margin: 0 29px 0 0;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-size: cover;
   background-position: center;
-  margin: 0 29px 0 0;
+  background-size: cover;
 }
 
 @media screen and (max-width: 740px) {
@@ -19,4 +20,21 @@
   .profile__image {
     margin-right: 0;
   }
+}
+
+.profile__image-button-update {
+  width: 100%;
+  border: none;
+  opacity: 0;
+  background: none;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 26px;
+  transition: opacity 0.3s;
+}
+
+.profile__image-button-update:hover {
+  opacity: 1;
+  transition: opacity 0.3s;
+  cursor: pointer;
 }
