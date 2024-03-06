@@ -41,9 +41,8 @@ const imageMesto = popupImage.querySelector('.popup__image');
 const caption = popupImage.querySelector('.popup__caption');
 
 const popupConfirmation = document.querySelector('.popup_confirmation');
-const buttonPopupConfirmation = popupConfirmation.querySelector('.popup__button');
 
-const overlay = document.querySelectorAll('.popup');
+const overlays = document.querySelectorAll('.popup');
 
 // Список классов для валидации
 
@@ -65,9 +64,11 @@ const apiPathConfig = {
   avatar: '/users/me/avatar'
 }
 
-// Id профиля
-
+// ID профиля
 let myId = "";
+
+// ID Card for remove
+let idCardForDelete = "";
 
 
 // Запрашиваем данные профиля и карточки
@@ -98,26 +99,33 @@ const getCards = (cards) => {
     placesList.append(createCard(placesItem, elem, openConfirmation, likeCard, openCardsModal, myId));
   })
 }
-
-const openConfirmation = (cardID, cardLayout) => {
-  openModal(popupConfirmation);
-  buttonPopupConfirmation.addEventListener('click', () => {
-    deleteCard(apiPathConfig.cards, cardID)
-      .then(res => {
-        console.info(res.message);
-        closeModal(popupConfirmation);
-        removeCard(cardLayout);
-      })
-      .catch(error => {
-        console.error(error);
-      })
-  })
+const handleSubmitConfirmPopup = (evt) => {
+  evt.preventDefault();
+  const card = document.getElementById(idCardForDelete);
+  deleteCard(apiPathConfig.cards, idCardForDelete)
+    .then(res => {
+      console.info(res.message);
+      closeModal(popupConfirmation);
+      removeCard(card);
+    })
+    .catch(error => {
+      console.error(error);
+    })
 }
+
+const openConfirmation = (cardID) => {
+  idCardForDelete = cardID;
+  openModal(popupConfirmation);
+}
+
+popupConfirmation.addEventListener('submit', (evt) => {
+  handleSubmitConfirmPopup(evt);
+});
 
 //Слушатель кнопки изменения аватара
 
 buttonAvatar.addEventListener('click', () => {
-  avatarInput.value = "";
+  popupAvatar.querySelector('.popup__form').reset();
   clearValidation(popupAvatar, validationConfig);
   openModal(popupAvatar);
 })
@@ -134,8 +142,7 @@ buttonEditProfile.addEventListener('click', () => {
 // Слушатель кнопки Добавления карточки
 
 buttonAddCard.addEventListener('click', () => {
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
+  popupAddCard.querySelector('.popup__form').reset();
   clearValidation(popupAddCard, validationConfig);
   openModal(popupAddCard);
 });
@@ -151,7 +158,7 @@ const openCardsModal = (name, link) => {
 
 // Слушатель на оверлей и кнопку закрытия модального окна
 
-overlay.forEach((elem) => {
+overlays.forEach((elem) => {
   elem.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close'))
       closeModal(elem);

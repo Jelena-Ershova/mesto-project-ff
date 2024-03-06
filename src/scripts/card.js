@@ -18,6 +18,7 @@ const hasMyLike = (likes, myId) => {
 const createCard = (placesItem, data, openConfirmation, likeCard, openCardsModal, myId) => {
 
   const placeItem = placesItem.cloneNode(true);
+  placeItem.id = data._id;
   const cardImage = placeItem.querySelector('.card__image');
   const buttonDelete = placeItem.querySelector('.card__delete-button');
   const buttonLike = placeItem.querySelector('.card__like-button');
@@ -30,7 +31,7 @@ const createCard = (placesItem, data, openConfirmation, likeCard, openCardsModal
 
   if (data.owner._id === myId) {
     buttonDelete.classList.add('card__delete-button-active');
-    buttonDelete.addEventListener('click', () => openConfirmation(data._id, placeItem));
+    buttonDelete.addEventListener('click', () => openConfirmation(data._id));
   }
 
   const myLike = hasMyLike(data.likes, myId);

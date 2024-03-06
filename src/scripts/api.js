@@ -5,17 +5,18 @@ const config = {
     'Content-Type': 'application/json'
   }
 }
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка от ${path}: ${res.status}`);
+}
 
 const getInitial = (path) => {
   return fetch(`${config.baseUrl}${path}`, {
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}: ${res.status}`);
-    })
+    .then(checkResponse)
 }
 
 const setProfile = (path, name, job) => {
@@ -27,12 +28,7 @@ const setProfile = (path, name, job) => {
     }),
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}: ${res.status}`);
-    })
+  .then(checkResponse)
 }
 
 const addNewCard = (path, name, link) => {
@@ -44,12 +40,7 @@ const addNewCard = (path, name, link) => {
     }),
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}: ${res.status}`);
-    })
+  .then(checkResponse)
 }
 
 const getLikesCard = (path, method, idCard) => {
@@ -57,12 +48,7 @@ const getLikesCard = (path, method, idCard) => {
     method: method,
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}: ${res.status}`);
-    })
+  .then(checkResponse)
 }
 
 const updateAvatar = (path, link) => {
@@ -73,12 +59,7 @@ const updateAvatar = (path, link) => {
     }),
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}: ${res.status}`);
-    })
+  .then(checkResponse)
 }
 
 const deleteCard = (path, idCard) => {
@@ -86,12 +67,7 @@ const deleteCard = (path, idCard) => {
     method: 'DELETE',
     headers: config.headers
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка от ${path}/${idCard}: ${res.status}`);
-    })
+  .then(checkResponse)
 }
 
 export { getInitial, setProfile, addNewCard, getLikesCard, updateAvatar, deleteCard };
